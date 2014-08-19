@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Добавь аудио к себе</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <!--<script src="/static/js/vendor/modernizr-2.6.2.min.js"></script>-->
+</head>
+<body>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="inner cover">
+                <h1 class="cover-heading">Добавь аудио к себе!</h1>
+                <div class="alert alert-error" data-bind="visible: url.error.hasError">
+                    <p data-bind="text: url.error.errorMessage"></p><button data-bind="click: clear">Попробовать снова</button>
+                </div>
+                <form class="form-inline" role="form" data-bind="visible: mediaItems().length == 0">
+                    <div class="form-group">
+                        <input type="text" class="form-control" style="width: 445px;" data-bind="value: url.value"
+                               placeholder="Вставь сюда идентификатор поста, например: wall-XXX_XXX">
+                        <button class="btn btn-default" data-bind="click: processUrl">Добавить</button>
+						
+						<button type="button" class="pop btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="При помощи этого инструмента можно легко добавить понравившуюся музыку из постов в вк к себе в аудиозаписи." style="color: #333;">
+						  <i class="glyphicon glyphicon-question-sign"></i>
+						</button>
+                    </div>
+                </form>
+
+                <div class="well" data-bind="visible: mediaItems().length > 0">
+                    <div class="row form-inline">
+                        <input type="text" class="form-control" data-bind="value: albumName" placeholder="Название альбома">
+                        <button class="btn btn-default" data-bind="click: addTracks">Добавить</button>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="track-name">Название трека</th>
+                            <th>Длительность</th>
+                        </tr>
+                        </thead>
+                        <tbody data-bind="foreach: mediaItems">
+                        <tr>
+                            <td data-bind="text: 1 + $index()"></td>
+                            <td class="track-name" data-bind="text: $data.trackName"></td>
+                            <td data-bind="text: $data.time"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+		  <br>
+		  <div class="text-center"><img src="/static/img/ajax-loader.gif"></div><br>
+		  <div class="text-center lead" style="color: black;" data-bind="text: progress.message"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/knockout-3.1.0.js"></script>
+<script src="//vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
+<script src="/static/main.js"></script>
+<script type="text/javascript">
+   
+	$(function(){
+		var modal = $('#myModal').modal({
+			show: false
+		});
+		
+		$('.pop').popover();
+		
+		window.model = new Model(modal);
+		
+		
+		
+		VK.init(function() {
+		    ko.applyBindings(window.model);
+		}, function() {
+		    location.reload();
+		}, '5.23');
+	})
+
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53471592-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
